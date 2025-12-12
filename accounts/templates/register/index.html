@@ -1,0 +1,75 @@
+{% extends "global/base.html" %} {% load static %} {% block content %}
+<section class="min-h-screen grid grid-cols-2">
+  <div class="bg-indigo-500 flex justify-center items-center flex-col gap-4">
+    <img
+      src="{% static 'images/moments.svg' %}"
+      class="max-w-96 w-full max-h-[32rem]"
+      alt="Momentos"
+    />
+    <div class="max-w-96 text-center">
+      <h2 class="text-4xl font-bold mb-2 text-white">
+        Nunca esqueça um aniversário!
+      </h2>
+      <p class="text-gray-200">
+        Receba lembretes e celebre seus amigos e familiares com pontualidade.
+      </p>
+    </div>
+  </div>
+  <div class="flex w-full items-center justify-center px-8 py-12">
+    <div class="w-full max-w-md">
+      <h2 class="text-4xl font-bold text-center max-sm:text-3xl">
+        Crie sua conta
+      </h2>
+      <p class="text-gray-500 text-center max-sm:text-sm mb-6">
+        Preencha as informações abaixo!
+      </p>
+
+      <form method="POST" class="space-y-4 w-full">
+        {% csrf_token %} {% if form.non_field_errors %}
+        <div class="bg-red-100 text-red-700 p-3 rounded-md text-sm">
+          {{ form.non_field_errors }}
+        </div>
+        {% endif %} {% for field in form %}
+        <div class="flex flex-col">
+          <label class="mb-1 font-medium text-sm text-gray-700">
+            {{ field.label }}
+          </label>
+
+          <input
+            type="{{ field.field.widget.input_type }}"
+            name="{{ field.name }}"
+            value="{{ field.value|default:'' }}"
+            placeholder="{% if field.name == 'username' %}Insira seu nome{% elif field.name == 'email' %}Insira seu e-mail{% elif field.name == 'password' %}Insira sua senha{% elif field.name == 'confirm_password' %}Insira sua senha novamente{% elif field.name == 'first_name' %}Primeiro nome{% elif field.name == 'last_name' %}Sobrenome{% elif field.name == 'birthday' %}Selecione a data{% else %}{{ field.label }}{% endif %}"
+            class="bg-white w-full text-black rounded-md border border-gray-200 px-4 py-3 text-base transition-colors placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+            autocomplete="off"
+          />
+
+          {% if field.errors %}
+          <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition"
+        >
+          Registrar
+        </button>
+      </form>
+
+      {% comment %}
+      <p class="text-center text-sm text-gray-600 mt-4">
+        Já tem conta?
+        <a
+          href="{% url 'login' %}"
+          class="text-blue-600 hover:underline font-medium"
+        >
+          Entrar
+        </a>
+      </p>
+      {% endcomment %}
+    </div>
+  </div>
+</section>
+{% endblock content %}
