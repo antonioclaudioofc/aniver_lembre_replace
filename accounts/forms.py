@@ -2,25 +2,26 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from .models import Profile
-
+from django.contrib.auth import authenticate
 
 class ProfileRegisterForm(forms.ModelForm):
     password = forms.CharField(
-        label="Insira sua senha",
+        label="Senha",
         widget=forms.PasswordInput,
     )
     confirm_password = forms.CharField(
-        label="Insira novamente sua senha",
+        label="Confirme sua senha",
         widget=forms.PasswordInput
-    )
-    birthday = forms.DateField(
-        label="Insira sua data de nascimento",
-        widget=forms.DateInput(attrs={"type": "date"})
     )
 
     class Meta:
         model = User
-        fields = ["username", "email", "first_name", "last_name"]
+        fields = ["first_name", "username", "email"]
+        labels = {
+            "first_name": "Nome",
+            "username": "Usuário",
+            "email": "E-mail",
+        }
 
     def clean_confirm_password(self):
         password = self.cleaned_data.get("password")
@@ -46,7 +47,25 @@ class ProfileRegisterForm(forms.ModelForm):
 
             Profile.objects.create(
                 user=user,
-                birthday=self.cleaned_data["birthday"]
+                updated_at=None
             )
 
         return user
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label="Usuário")
+    password = forms.CharField(label="Senha", widget=forms.PasswordInput)
+
+    def clean(self):
+        clean_data = super().clean()
+        username = clean_data.get("username")
+        password = clean_data.get("password")
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if user is None:
+                raise ValidationError("Usuário ou senha inválidos.")
+            clean_data["user"] = user
+
+        return clean_data
