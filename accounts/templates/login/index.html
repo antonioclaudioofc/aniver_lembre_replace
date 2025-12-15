@@ -44,7 +44,7 @@
             type="{{ field.field.widget.input_type }}"
             name="{{ field.name }}"
             value="{{ field.value|default:'' }}"
-            placeholder="{% if field.name == 'username' %}Crie um nome de usuário{% elif field.name == 'email' %}Insira seu e-mail{% elif field.name == 'password' %}Insira sua senha{% elif field.name == 'confirm_password' %}Insira sua senha novamente{% elif field.name == 'first_name' %}Insira seu nome{% else %}{{ field.label }}{% endif %}"
+            placeholder="{% if field.name == 'username' %}Insira o nome usuário{% elif field.name == 'email' %}Insira seu e-mail{% elif field.name == 'password' %}Insira sua senha{% elif field.name == 'confirm_password' %}Insira sua senha novamente{% elif field.name == 'first_name' %}Insira seu nome{% else %}{{ field.label }}{% endif %}"
             class="bg-white w-full text-black rounded-md border border-gray-200 px-4 py-3 text-sm transition-colors placeholder:text-gray-500 outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
             autocomplete="off"
           />
@@ -57,9 +57,11 @@
 
         <button
           type="submit"
-          class="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-3 rounded-lg font-semibold transition"
+          id="loginBtn"
+          class="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-3 rounded-lg font-semibold transition disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          Entrar
+          <span class="material-symbols-outlined animate-spin hidden" id="loginSpinner">progress_activity</span>
+          <span id="loginText">Entrar</span>
         </button>
       </form>
 
@@ -75,4 +77,21 @@
     </div>
   </div>
 </section>
+
+<script>
+  const loginForm = document.querySelector('form');
+  const loginBtn = document.getElementById('loginBtn');
+  const loginSpinner = document.getElementById('loginSpinner');
+  const loginText = document.getElementById('loginText');
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+      // Desabilitar botão e mostrar loader
+      loginBtn.disabled = true;
+      loginSpinner.classList.remove('hidden');
+      loginText.textContent = 'Entrando...';
+    });
+  }
+</script>
+
 {% endblock content %}

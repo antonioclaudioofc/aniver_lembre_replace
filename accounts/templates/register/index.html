@@ -52,9 +52,15 @@
 
         <button
           type="submit"
-          class="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-3 rounded-lg font-semibold transition"
+          id="registerBtn"
+          class="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-3 rounded-lg font-semibold transition disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          Criar
+          <span
+            class="material-symbols-outlined animate-spin hidden"
+            id="registerSpinner"
+            >progress_activity</span
+          >
+          <span id="registerText">Criar</span>
         </button>
       </form>
 
@@ -70,4 +76,21 @@
     </div>
   </div>
 </section>
+
+<script>
+  const registerForm = document.querySelector("form");
+  const registerBtn = document.getElementById("registerBtn");
+  const registerSpinner = document.getElementById("registerSpinner");
+  const registerText = document.getElementById("registerText");
+
+  if (registerForm) {
+    registerForm.addEventListener("submit", function (e) {
+      // Desabilitar botão e mostrar loader
+      registerBtn.disabled = true;
+      registerSpinner.classList.remove("hidden");
+      registerText.textContent = "Criando conta...";
+    });
+  }
+</script>
+
 {% endblock content %}
