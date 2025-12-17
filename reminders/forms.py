@@ -10,6 +10,11 @@ class ReminderForm(forms.ModelForm):
             'notify_at',
             'active',
         ]
+        labels = {
+            'days_before': 'Dias de antecedência',
+            'notify_at': 'Hora da notificação',
+            'active': 'Ativo',
+        }
         widgets = {
             'days_before': forms.NumberInput(attrs={
                 'min': '0',

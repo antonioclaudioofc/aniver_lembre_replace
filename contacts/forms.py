@@ -6,6 +6,12 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ['name', 'birthday', 'relationship', 'notes']
+        labels = {
+            'name': 'Nome',
+            'birthday': 'Data de Nascimento',
+            'relationship': 'Grau de Parentesco',
+            'notes': 'Observações',
+        }
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'bg-white w-full text-black rounded-md border border-gray-200 px-4 py-3 text-sm transition-colors placeholder:text-gray-500 outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500',
