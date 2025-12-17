@@ -65,6 +65,31 @@
         </button>
       </form>
 
+      <div class="mt-4">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-white text-gray-500">ou</span>
+          </div>
+        </div>
+
+        <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="username" value="antonio">
+          <input type="hidden" name="password" value="123456">
+          <button
+            id="loginBtn"
+            type="submit"
+            class="mt-4 w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2 shadow-sm"
+          >
+          <span class="material-symbols-outlined animate-spin hidden" id="loginSpinner">progress_activity</span>
+            Entrar como Demo
+          </button>
+        </form>
+      </div>
+
       <p class="text-center text-sm text-gray-600 mt-4">
         Não possui conta?
         <a
