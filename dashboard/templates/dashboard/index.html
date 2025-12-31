@@ -7,7 +7,7 @@
       onclick="location.href='{% url 'dashboard:index' %}'"
     >
       <img src="{% static 'images/logo.svg' %}" alt="Logo" class="w-8 h-8" />
-      <span class="font-semibold text-lg">AniverLembre</span>
+      <span class="font-semibold text-lg max-md:hidden">AniverLembre</span>
     </div>
     <div class="flex items-center gap-2">
       <div class="relative">
@@ -171,7 +171,7 @@
 
 <dialog
   id="createDialog"
-  class="rounded-lg max-w-2xl w-full p-0 backdrop:bg-black backdrop:bg-opacity-50"
+  class="rounded-lg max-w-2xl w-5/6 p-0 backdrop:bg-black backdrop:bg-opacity-50 px-4"
 >
   <div class="bg-white rounded-lg">
     <div class="flex justify-between items-center px-6 py-4 border-b">
@@ -314,7 +314,7 @@
         </div>
       </div>
 
-      <div class="flex justify-end gap-3 pt-4 border-t">
+      <div class="flex justify-end max-md:justify-center gap-3 pt-4 border-t">
         <button
           type="button"
           id="cancelCreate"
